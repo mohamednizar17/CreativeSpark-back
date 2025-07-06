@@ -1,15 +1,11 @@
-console.log("🔧 Node.js version:", process.version);
-
 require('dotenv').config();
 const express = require('express');
-const fetch = require('node-fetch');
 const cors = require('cors');
 const app = express();
 
 app.use(cors());
 app.use(express.json());
 
-// Root route
 app.get('/', (req, res) => {
   res.send('🤖 AI Chat Server is Running!');
 });
