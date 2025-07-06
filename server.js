@@ -7,6 +7,12 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+// ✅ Root route (fixes "Cannot GET /")
+app.get('/', (req, res) => {
+  res.send('🤖 AI Chat Server is Running!');
+});
+
+// ✅ Chat route
 app.post('/api/chat', async (req, res) => {
   const { messages } = req.body; // [{role: "user"/"assistant", content: "..."}]
   const apiKey = process.env.OPENAI_API_KEY;
