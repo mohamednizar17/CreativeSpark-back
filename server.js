@@ -6,12 +6,10 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// Test route
 app.get('/', (req, res) => {
-  res.send('🤖 OpenRouter AI Chat Server is running!');
+  res.send('🤖 Claude 3 Haiku AI Chat Server is running!');
 });
 
-// OpenRouter Chat Route
 app.post('/api/chat', async (req, res) => {
   const { messages } = req.body;
   const apiKey = process.env.OPENAI_API_KEY;
@@ -27,22 +25,22 @@ app.post('/api/chat', async (req, res) => {
       headers: {
         'Authorization': `Bearer ${apiKey}`,
         'Content-Type': 'application/json',
-        'HTTP-Referer': 'https://creative-spark-alpha.vercel.app/', // ✅ Replace with your frontend domain
+        'HTTP-Referer': 'https://creative-spark-alpha.vercel.app', // ✅ Replace with your actual frontend domain
         'X-Title': 'Creative Spark Studio'
       },
       body: JSON.stringify({
-        model: 'openai/gpt-3.5-turbo', // or try claude/gemini/etc.
+        model: 'anthropic/claude-3-haiku',
         messages,
         max_tokens: 200
       })
     });
 
     const data = await response.json();
-    console.log('🔄 OpenRouter response:', JSON.stringify(data, null, 2));
+    console.log('🔄 Claude 3 response:', JSON.stringify(data, null, 2));
 
     if (data.error) {
-      console.error('❌ OpenRouter Error:', data.error);
-      return res.json({ reply: `OpenRouter Error: ${data.error.message}` });
+      console.error('❌ Claude API Error:', data.error);
+      return res.json({ reply: `Claude Error: ${data.error.message}` });
     }
 
     res.json({ reply: data.choices?.[0]?.message?.content || "Try again!" });
