@@ -1,3 +1,5 @@
+console.log("🔧 Node.js version:", process.version);
+
 require('dotenv').config();
 const express = require('express');
 const fetch = require('node-fetch');
